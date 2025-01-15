@@ -1,7 +1,7 @@
 const User = require('../Modals/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
+require("dotenv").config();
 
 const cookieOptions = {
     httpOnly: true,
@@ -39,7 +39,7 @@ exports.signIn = async (req, res) => {
         const { userName, password } = req.body;
         const user = await User.findOne({ userName });
         if (user && bcrypt.compare(password, user.password)) {
-            const token = jwt.sign({ userId: user._id }, 'Its_My_Secret_key');
+            const token = jwt.sign({ userId: user._id }, SCRET_KEY);
             res.cookie('tokens', token, cookieOptions);
             res.json({ message: 'Logged in successfully', success: "true", token, user });
 

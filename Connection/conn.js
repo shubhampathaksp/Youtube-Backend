@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
-
+require('dotenv').config();
 // youtubeBackend
 
 mongoose
-.connect('mongodb://localhost:27017/youtubeBackend')
+.connect(process.env.MONGO_URL)
 .then(()=> console.log('DB connnection succesfull !')).catch(err=>{
     console.log(err)
 });
